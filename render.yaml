@@ -1,0 +1,19 @@
+# Render Blueprint — reproducible backend deploy (committed, not a manual
+# one-off). Create the service via Render "New > Blueprint" pointed at this
+# repo, or it's picked up automatically on connect.
+#
+# The backend image builds the model from source at build time
+# (run_pipeline.py in backend/Dockerfile), so there is no model artifact to
+# upload — the deploy is reproducible from the committed code alone.
+services:
+  - type: web
+    name: cartiq-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    # Render injects $PORT and the Dockerfile CMD binds it; do NOT hardcode a
+    # PORT env var here or routing breaks.
+    healthCheckPath: /health
+    autoDeploy: true

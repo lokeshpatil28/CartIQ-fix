@@ -1,0 +1,33 @@
+# Local-dev orchestration: backend + frontend, wired together.
+#   docker compose up --build
+# Then: frontend at http://localhost:8501, API at http://localhost:8000.
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: cartiq-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: cartiq-frontend
+    ports:
+      - "8501:8501"
+    environment:
+      # Talk to the backend over the compose network by service name.
+      - API_URL=http://backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy

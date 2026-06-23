@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Generated data — reproducible via run_pipeline.py, shouldn't bloat the repo
+data_generation/items.csv
+data_generation/orders.csv
+data_generation/snapshots.csv
+data_generation/training_data.csv
+data_generation/feature_matrix.csv
+
+# Trained model + metrics — reproducible via run_pipeline.py
+model_training/model.joblib
+model_training/metrics.json
+
+.DS_Store
+*.log

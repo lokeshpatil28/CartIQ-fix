@@ -1,0 +1,20 @@
+# Keep the build context small and reproducible. Generated data + model
+# artifacts are rebuilt inside the backend image by run_pipeline.py, so they
+# should never be copied in from the host (avoids baking in a stale model).
+.git
+.github
+**/__pycache__
+*.pyc
+.pytest_cache
+.venv
+venv
+env
+*.joblib
+data_generation/orders.csv
+data_generation/snapshots.csv
+data_generation/training_data.csv
+data_generation/feature_matrix.csv
+data_generation/items.csv
+docs
+README.md
+*.md

@@ -1,0 +1,5 @@
+# Frontend is a thin HTTP client — it talks to the backend over REST and does
+# no ML itself, so it deliberately does NOT pull in lightgbm/pandas/sklearn.
+# Keeps the frontend image small and the Streamlit Cloud build fast.
+streamlit==1.40.0
+requests==2.32.5
