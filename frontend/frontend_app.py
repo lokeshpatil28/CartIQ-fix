@@ -28,6 +28,13 @@ import os
 import time
 from datetime import datetime
 
+# set_page_config MUST be the first Streamlit command executed — before ANY
+# other st.* call. st.secrets access counts as a Streamlit command, so the
+# API_URL resolution (which reads st.secrets) must come AFTER this line, not
+# before it. Keep set_page_config immediately after the imports.
+st.set_page_config(page_title="CartIQ - AI Cart Intelligence", page_icon="\U0001F9E0", layout="wide")
+
+
 # ── Configuration ────────────────────────────────────────────────────
 # API_URL resolution order, so the same code runs everywhere unchanged:
 #   1. st.secrets["API_URL"]  -> Streamlit Community Cloud (set in app Secrets)
@@ -45,8 +52,6 @@ def _resolve_api_url():
 
 
 API_URL = _resolve_api_url()
-
-st.set_page_config(page_title="CartIQ - AI Cart Intelligence", page_icon="\U0001F9E0", layout="wide")
 
 # ── Custom CSS ───────────────────────────────────────────────────────
 st.markdown("""
